@@ -5,6 +5,7 @@ import Statistics from "./_components/Statistics";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useState } from "react";
+import CreateForm from "./_components/CreateForm";
 
 const mockConcerts = [
   {
@@ -66,6 +67,9 @@ export default function HomePage() {
       </Tabs>
       <CustomTabPanel index={0} value={value}>
         <ConcertList concerts={concerts} />
+      </CustomTabPanel>
+      <CustomTabPanel index={1} value={value}>
+        <CreateForm />
       </CustomTabPanel>
     </div>
   );
