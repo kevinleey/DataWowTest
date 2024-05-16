@@ -1,12 +1,26 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathname = usePathname();
+
+  const isActive = (path: string) => {
+    return pathname === path;
+  };
+
   return (
     <div className="navbar">
-      <div className="navbar-header">
+      <div>
         <h1 className="role-title">Admin</h1>
         <ul className="navbar-item-container">
-          <li className="navbar-item">
+          <li
+            className="navbar-item"
+            style={{
+              backgroundColor: isActive("/") ? "#EAF5F9" : "transparent",
+            }}
+          >
             <Link href="/">
               <div className="navbar-item-content">
                 <svg
@@ -28,7 +42,12 @@ export default function Navbar() {
               </div>
             </Link>
           </li>
-          <li className="navbar-item">
+          <li
+            className="navbar-item"
+            style={{
+              backgroundColor: isActive("/history") ? "#EAF5F9" : "transparent",
+            }}
+          >
             <Link href="/history">
               <div className="navbar-item-content">
                 <svg

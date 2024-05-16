@@ -1,5 +1,6 @@
 body {
-  font-family: Arial;
+  background-color: #fbfbfb;
+  margin: 0;
 }
 
 a {
@@ -9,7 +10,7 @@ a {
 
 .main-container {
   width: 70%;
-  margin: 30px auto 0;
+  margin: auto;
   display: flex;
   align-items: flex-start;
 }
@@ -31,16 +32,24 @@ a {
   flex-direction: column;
   justify-content: space-between;
   font-size: 20px;
+  background-color: white;
+  border: 1px solid #eaeaea;
+  padding-top: 17px;
 }
 
 .navbar-item-container {
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .navbar-item {
   list-style-type: none;
-  padding: 25px;
+  border-radius: 8px;
+  padding: 20px 10px;
+  width: 85%;
 }
 
 .navbar-item-content {
@@ -54,6 +63,11 @@ a {
 
 .page {
   width: 100%;
+  padding: 40px 30px;
+}
+
+.tab-container {
+  margin-bottom: 15px;
 }
 
 .concert-card-container {
