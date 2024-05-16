@@ -50,7 +50,48 @@ a {
 }
 
 .page {
-  margin-left: 250px;
+  width: 100%;
+}
+
+.concert-card-container {
+  font-size: 16px;
+  border: 1px solid #d7d7d7;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 25px;
+}
+
+.concert-card-title {
+  margin: 0 0 15px 0;
+  color: #1692ec;
+}
+
+.separator {
+  border-top: 1px solid #d7d7d7;
+}
+
+.concert-card-footer-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.concert-card-reservations-container {
+  display: flex;
+  align-items: center;
+}
+
+.small-icon-margin {
+  margin-left: 5px;
+}
+
+.concert-card-delete-button {
+  display: flex;
+  align-items: center;
+  color: white;
+  background-color: #e84e4e;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
 }
 
 .statistics-container {
