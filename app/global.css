@@ -1,3 +1,9 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 body {
   background-color: #fbfbfb;
   margin: 0;
@@ -150,4 +156,67 @@ a {
 
 .stat-number {
   font-size: 38px;
+}
+
+.create-form-field-container {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr 1fr;
+}
+
+.section1 {
+  grid-area: 1 / 1;
+  margin-right: 15px;
+}
+
+.section2 {
+  grid-area: 1 / 2;
+  position: relative;
+}
+
+.section2 input {
+  padding-right: 30px;
+}
+
+.section2 .icon {
+  position: absolute;
+  top: 82%;
+  right: 8px;
+  transform: translateY(-50%);
+}
+
+.section3 {
+  grid-area: 2 / 1 / span 1 / span 2;
+}
+
+.field-label {
+  margin: 15px 0 10px 0;
+  display: block;
+}
+
+.input {
+  font-family: inherit;
+  padding: 8px 10px;
+  border-radius: 3px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  opacity: 0.5;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 5px;
+  border: none;
+  margin-left: auto;
+}
+
+.create-form-save-button {
+  background-color: #1692ec;
+  margin-top: 15px;
 }

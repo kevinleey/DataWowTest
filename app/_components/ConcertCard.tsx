@@ -2,10 +2,10 @@ export default function ConcertCard({ concert }: any) {
   const { id, name, description, reservations } = concert || {};
 
   return (
-    <div className="concert-card-container">
-      <h2 className="concert-card-title">{name}</h2>
+    <div className="card-container">
+      <h2 className="card-title">{name}</h2>
       <div className="separator"></div>
-      <h5>{description}</h5>
+      <h5 className="concert-card-description">{description}</h5>
       <div className="concert-card-footer-container">
         <div className="concert-card-reservations-container">
           <svg
@@ -25,7 +25,7 @@ export default function ConcertCard({ concert }: any) {
           </svg>
           <span className="small-icon-margin">{reservations}</span>
         </div>
-        <button className="concert-card-delete-button">
+        <button className="button concert-card-delete-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
