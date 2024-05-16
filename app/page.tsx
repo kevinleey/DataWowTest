@@ -1,5 +1,10 @@
+"use client";
+
 import ConcertList from "./_components/ConcertList";
 import Statistics from "./_components/Statistics";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { useState } from "react";
 
 const mockConcerts = [
   {
@@ -18,17 +23,50 @@ const mockConcerts = [
   },
 ];
 
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function CustomTabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && children}
+    </div>
+  );
+}
+
 function getConcerts() {
   return mockConcerts;
 }
 
 export default function HomePage() {
   const concerts = getConcerts();
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
 
   return (
     <div className="page">
       <Statistics />
-      <ConcertList concerts={concerts} />
+      <Tabs className="tab-container" value={value} onChange={handleChange}>
+        <Tab label="Overview" />
+        <Tab label="Create" />
+      </Tabs>
+      <CustomTabPanel index={0} value={value}>
+        <ConcertList concerts={concerts} />
+      </CustomTabPanel>
     </div>
   );
 }
