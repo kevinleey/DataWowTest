@@ -29,4 +29,13 @@ export class ConcertsController {
   getAllConcerts() {
     return this.concertsService.getAllProducts();
   }
+
+  @Delete(':id')
+  deleteConcert(@Param('id') concertId: string): any {
+    const deletedConcert = this.concertsService.deleteConcert(concertId);
+    if (!deletedConcert) {
+      throw new NotFoundException('Concert not found');
+    }
+    return { message: 'Concert deleted successfully' };
+  }
 }
