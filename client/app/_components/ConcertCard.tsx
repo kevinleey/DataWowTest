@@ -1,5 +1,22 @@
+import { useConcerts } from "../_context/ConcertContext";
+import { Modal } from "@mui/base/Modal";
+import { useState } from "react";
+import { styled } from "@mui/system";
+import { Backdrop } from "@mui/material";
+
 export default function ConcertCard({ concert }: any) {
+  const { deleteConcert } = useConcerts();
   const { id, name, description, reservations } = concert || {};
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
+
+  const handleDelete = () => {
+    deleteConcert(id);
+  };
 
   return (
     <div className="card-container">
@@ -25,7 +42,10 @@ export default function ConcertCard({ concert }: any) {
           </svg>
           <span className="small-icon-margin">{reservations}</span>
         </div>
-        <button className="button concert-card-delete-button">
+        <button
+          className="button concert-card-delete-button"
+          onClick={handleOpen}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -44,6 +64,52 @@ export default function ConcertCard({ concert }: any) {
           <span className="small-icon-margin">Delete</span>
         </button>
       </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        slots={{ backdrop: StyledBackdrop }}
+      >
+        <div className="modal-content">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="#E84E4E"
+            height="60px"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <h3 className="modal-title">
+            Are you sure you want to delete?
+            <br />"{name}"
+          </h3>
+          <div className="modal-footer">
+            <button
+              onClick={handleClose}
+              className="button modal-button cancel-button"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleDelete}
+              className="button modal-button concert-card-delete-button"
+            >
+              Yes, Delete
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
+
+const StyledBackdrop = styled(Backdrop)`
+  z-index: 1;
+  position: fixed;
+  inset: 0;
+  background-color: rgb(0 0 0 / 0.5);
+  -webkit-tap-highlight-color: transparent;
+`;

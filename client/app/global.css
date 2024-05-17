@@ -209,6 +209,7 @@ a {
 .button {
   display: flex;
   align-items: center;
+  justify-content: center;
   color: white;
   padding: 10px 25px;
   border-radius: 5px;
@@ -223,4 +224,46 @@ a {
 
 .concert-card-delete-button {
   background-color: #e84e4e;
+}
+
+.modal-content {
+  z-index: 2;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 25%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 8px;
+  color: black;
+  padding: 20px;
+}
+
+.modal-title {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.modal-footer {
+  font-family: inherit;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.modal-button {
+  width: 100%;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.cancel-button {
+  border: 1px solid #e1e1e1;
+  color: black;
+  background-color: white;
 }
