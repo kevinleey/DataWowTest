@@ -2,7 +2,7 @@ import { UserIcon } from "../constants";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 interface CreateFormProps {
-  handleFormSuccess: () => void;
+  handleFormSuccess: (newConcert: any) => void;
 }
 
 export default function CreateForm({ handleFormSuccess }: CreateFormProps) {
@@ -23,16 +23,39 @@ export default function CreateForm({ handleFormSuccess }: CreateFormProps) {
     setDescription(event.target.value);
   };
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
     const body = {
       concertName,
-      totalSeats,
+      totalSeats: parseInt(totalSeats),
       description,
     };
 
-    handleFormSuccess();
+    try {
+      const response = await fetch("http://localhost:3001/concerts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      console.log("Concert created with ID:", data.id);
+      handleFormSuccess({
+        id: data.id,
+        name: concertName,
+        description: description,
+        reservations: totalSeats,
+      });
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
   };
 
   return (
