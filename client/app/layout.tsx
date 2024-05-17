@@ -4,6 +4,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import { Roboto } from "next/font/google";
 import "./global.css";
+import { ConcertProvider } from "./_context/ConcertContext";
 
 export const metadata = {
   title: "Next.js",
@@ -25,12 +26,14 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <main className="main-container">
-              <nav>
-                <Navbar />
-              </nav>
-              {children}
-            </main>
+            <ConcertProvider>
+              <main className="main-container">
+                <nav>
+                  <Navbar />
+                </nav>
+                {children}
+              </main>
+            </ConcertProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

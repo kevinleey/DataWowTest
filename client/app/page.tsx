@@ -46,6 +46,7 @@ function CustomTabPanel(props: TabPanelProps) {
     </div>
   );
 }
+import { useConcerts } from "./_context/ConcertContext";
 
 interface Concert {
   id: number;
@@ -55,26 +56,9 @@ interface Concert {
 }
 
 export default function HomePage() {
-  const [concerts, setConcerts] = useState<Concert[]>([]);
+  const { setConcerts } = useConcerts();
   const [value, setValue] = useState(0);
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
-
-  const getConcerts = async () => {
-    try {
-      const response = await fetch("http://localhost:3001/concerts");
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      setConcerts(data);
-    } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
-    }
-  };
-
-  useEffect(() => {
-    getConcerts();
-  }, []);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
