@@ -4,7 +4,7 @@ import ConcertList from "./_components/ConcertList";
 import Statistics from "./_components/Statistics";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateForm from "./_components/CreateForm";
 import ConcertSnackbar from "./_components/ConcertSnackbar";
 
@@ -47,20 +47,41 @@ function CustomTabPanel(props: TabPanelProps) {
   );
 }
 
-function getConcerts() {
-  return mockConcerts;
+interface Concert {
+  id: number;
+  name: string;
+  description: string;
+  reservations: number;
 }
 
 export default function HomePage() {
-  const concerts = getConcerts();
+  const [concerts, setConcerts] = useState<Concert[]>([]);
   const [value, setValue] = useState(0);
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+
+  const getConcerts = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/concerts");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setConcerts(data);
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
+  };
+
+  useEffect(() => {
+    getConcerts();
+  }, []);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  const handleFormSuccess = () => {
+  const handleFormSuccess = (newConcert: Concert) => {
+    setConcerts((prevConcerts) => [...prevConcerts, newConcert]);
     setIsSnackbarOpen(true);
     setValue(0);
   };
