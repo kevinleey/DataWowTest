@@ -6,6 +6,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useState } from "react";
 import CreateForm from "./_components/CreateForm";
+import ConcertSnackbar from "./_components/ConcertSnackbar";
 
 const mockConcerts = [
   {
@@ -53,9 +54,19 @@ function getConcerts() {
 export default function HomePage() {
   const concerts = getConcerts();
   const [value, setValue] = useState(0);
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+  };
+
+  const handleFormSuccess = () => {
+    setIsSnackbarOpen(true);
+    setValue(0);
+  };
+
+  const handleSnackbarClose = () => {
+    setIsSnackbarOpen(false);
   };
 
   return (
@@ -69,8 +80,9 @@ export default function HomePage() {
         <ConcertList concerts={concerts} />
       </CustomTabPanel>
       <CustomTabPanel index={1} value={value}>
-        <CreateForm />
+        <CreateForm handleFormSuccess={handleFormSuccess} />
       </CustomTabPanel>
+      <ConcertSnackbar open={isSnackbarOpen} onClose={handleSnackbarClose} />
     </div>
   );
 }
