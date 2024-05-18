@@ -3,9 +3,13 @@ import { useConcerts } from "../_context/ConcertContext";
 
 interface ConcertListProps {
   handleDeleteSuccess: () => void;
+  curUser: any;
 }
 
-export default function ConcertList({ handleDeleteSuccess }: ConcertListProps) {
+export default function ConcertList({
+  handleDeleteSuccess,
+  curUser,
+}: ConcertListProps) {
   const { concerts } = useConcerts();
 
   return (
@@ -16,6 +20,7 @@ export default function ConcertList({ handleDeleteSuccess }: ConcertListProps) {
             key={concert.id}
             concert={concert}
             handleDeleteSuccess={handleDeleteSuccess}
+            curUser={curUser}
           />
         );
       })}
