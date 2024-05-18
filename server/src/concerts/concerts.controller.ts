@@ -14,9 +14,9 @@ export class ConcertsController {
   constructor(private readonly concertsService: ConcertsService) {}
   @Post()
   createConcert(
-    @Body('concertName') concertName: string,
+    @Body('name') concertName: string,
     @Body('description') concertDesc: string,
-    @Body('totalSeats') concertSeats: number,
+    @Body('reservations') concertSeats: number,
   ): any {
     const generatedId = this.concertsService.createConcert(
       concertName,
