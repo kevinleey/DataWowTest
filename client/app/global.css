@@ -19,7 +19,6 @@ a {
 }
 
 .main-container {
-  width: 70%;
   max-width: 1000px;
   margin: auto;
   display: flex;
@@ -33,7 +32,7 @@ a {
 }
 
 .navbar {
-  width: 250px;
+  width: 220px;
   height: 750px;
   position: sticky;
   z-index: 1;
@@ -73,7 +72,8 @@ a {
 }
 
 .page {
-  width: 100%;
+  flex-grow: 1;
+  max-width: 70%;
   padding: 40px 30px;
 }
 
@@ -101,6 +101,7 @@ a {
 .concert-card-description {
   font-weight: normal;
   line-height: 20px;
+  word-wrap: break-word;
 }
 
 .concert-card-footer-container {
