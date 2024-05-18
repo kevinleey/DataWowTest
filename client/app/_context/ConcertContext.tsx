@@ -2,10 +2,10 @@
 
 import React, {
   createContext,
-  useContext,
-  useState,
-  useEffect,
   ReactNode,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
 
 interface Concert {
@@ -18,6 +18,7 @@ interface Concert {
 interface ConcertContextType {
   concerts: Concert[];
   setConcerts: React.Dispatch<React.SetStateAction<Concert[]>>;
+  createConcert: (concertData: Omit<Concert, "id">) => void;
   deleteConcert: (id: number) => void;
 }
 
@@ -36,6 +37,34 @@ export const ConcertProvider = ({ children }: { children: ReactNode }) => {
       setConcerts(data);
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
+    }
+  };
+
+  const createConcert = async (concertData: Omit<Concert, "id">) => {
+    try {
+      const response = await fetch(`http://localhost:3001/concerts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(concertData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data: Concert = await response.json();
+
+      const newConcert = {
+        id: data.id,
+        ...concertData,
+      };
+
+      setConcerts((prevConcerts) => [...prevConcerts, newConcert]);
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+      throw error;
     }
   };
 
@@ -60,7 +89,9 @@ export const ConcertProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <ConcertContext.Provider value={{ concerts, setConcerts, deleteConcert }}>
+    <ConcertContext.Provider
+      value={{ concerts, setConcerts, createConcert, deleteConcert }}
+    >
       {children}
     </ConcertContext.Provider>
   );

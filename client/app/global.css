@@ -198,6 +198,7 @@ a {
   font-family: inherit;
   padding: 8px 10px;
   border-radius: 3px;
+  border: 1px solid #5c5c5c;
   width: 100%;
   box-sizing: border-box;
 }
@@ -266,4 +267,8 @@ a {
   border: 1px solid #e1e1e1;
   color: black;
   background-color: white;
+}
+
+.concert-snackbar {
+  background-color: #d0e7d2;
 }

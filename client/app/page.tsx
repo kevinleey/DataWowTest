@@ -10,26 +10,25 @@ import ConcertSnackbar from "./_components/ConcertSnackbar";
 import CustomTabPanel from "./_components/CustomTabPanel";
 import { useConcerts } from "./_context/ConcertContext";
 
-interface Concert {
-  id: number;
-  name: string;
-  description: string;
-  reservations: number;
-}
-
 export default function HomePage() {
   const { setConcerts } = useConcerts();
   const [value, setValue] = useState(0);
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [action, setAction] = useState("");
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  const handleFormSuccess = (newConcert: Concert) => {
-    setConcerts((prevConcerts) => [...prevConcerts, newConcert]);
+  const handleConcertCreate = () => {
     setIsSnackbarOpen(true);
     setValue(0);
+    setAction("created");
+  };
+
+  const handleConcertDelete = () => {
+    setIsSnackbarOpen(true);
+    setAction("deleted");
   };
 
   const handleSnackbarClose = () => {
@@ -44,12 +43,16 @@ export default function HomePage() {
         <Tab label="Create" />
       </Tabs>
       <CustomTabPanel index={0} value={value}>
-        <ConcertList />
+        <ConcertList handleDeleteSuccess={handleConcertDelete} />
       </CustomTabPanel>
       <CustomTabPanel index={1} value={value}>
-        <CreateForm handleFormSuccess={handleFormSuccess} />
+        <CreateForm handleFormSuccess={handleConcertCreate} />
       </CustomTabPanel>
-      <ConcertSnackbar open={isSnackbarOpen} onClose={handleSnackbarClose} />
+      <ConcertSnackbar
+        open={isSnackbarOpen}
+        action={action}
+        onClose={handleSnackbarClose}
+      />
     </div>
   );
 }

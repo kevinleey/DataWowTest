@@ -1,20 +1,23 @@
 import ConcertCard from "./ConcertCard";
 import { useConcerts } from "../_context/ConcertContext";
 
-interface Concert {
-  id: number;
-  name: string;
-  description: string;
-  reservations: number;
+interface ConcertListProps {
+  handleDeleteSuccess: () => void;
 }
 
-export default function ConcertList() {
+export default function ConcertList({ handleDeleteSuccess }: ConcertListProps) {
   const { concerts } = useConcerts();
 
   return (
     <div className="concert-list-container">
       {concerts?.map((concert) => {
-        return <ConcertCard key={concert.id} concert={concert} />;
+        return (
+          <ConcertCard
+            key={concert.id}
+            concert={concert}
+            handleDeleteSuccess={handleDeleteSuccess}
+          />
+        );
       })}
     </div>
   );

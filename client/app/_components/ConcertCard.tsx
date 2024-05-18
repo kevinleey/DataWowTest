@@ -4,7 +4,15 @@ import { useState } from "react";
 import { styled } from "@mui/system";
 import { Backdrop } from "@mui/material";
 
-export default function ConcertCard({ concert }: any) {
+interface ConcertCardProps {
+  concert: any;
+  handleDeleteSuccess: () => void;
+}
+
+export default function ConcertCard({
+  concert,
+  handleDeleteSuccess,
+}: ConcertCardProps) {
   const { deleteConcert } = useConcerts();
   const { id, name, description, reservations } = concert || {};
   const [open, setOpen] = useState(false);
@@ -16,6 +24,7 @@ export default function ConcertCard({ concert }: any) {
 
   const handleDelete = () => {
     deleteConcert(id);
+    handleDeleteSuccess();
   };
 
   return (
