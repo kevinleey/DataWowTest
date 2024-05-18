@@ -10,13 +10,6 @@ import ConcertSnackbar from "./_components/ConcertSnackbar";
 import CustomTabPanel from "./_components/CustomTabPanel";
 import { useConcerts } from "./_context/ConcertContext";
 
-interface Concert {
-  id: number;
-  name: string;
-  description: string;
-  reservations: number;
-}
-
 export default function HomePage() {
   const { setConcerts } = useConcerts();
   const [value, setValue] = useState(0);
@@ -26,8 +19,7 @@ export default function HomePage() {
     setValue(newValue);
   };
 
-  const handleFormSuccess = (newConcert: Concert) => {
-    setConcerts((prevConcerts) => [...prevConcerts, newConcert]);
+  const handleConcertCreate = () => {
     setIsSnackbarOpen(true);
     setValue(0);
   };
@@ -47,7 +39,7 @@ export default function HomePage() {
         <ConcertList />
       </CustomTabPanel>
       <CustomTabPanel index={1} value={value}>
-        <CreateForm handleFormSuccess={handleFormSuccess} />
+        <CreateForm handleFormSuccess={handleConcertCreate} />
       </CustomTabPanel>
       <ConcertSnackbar open={isSnackbarOpen} onClose={handleSnackbarClose} />
     </div>

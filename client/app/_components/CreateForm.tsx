@@ -1,12 +1,13 @@
 import { UserIcon } from "../constants";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useConcerts } from "../_context/ConcertContext";
 
 interface CreateFormProps {
-  handleFormSuccess: (newConcert: any) => void;
+  handleFormSuccess: () => void;
 }
 
 export default function CreateForm({ handleFormSuccess }: CreateFormProps) {
-  // Initialize state variables for the form fields
+  const { createConcert } = useConcerts();
   const [concertName, setConcertName] = useState("");
   const [totalSeats, setTotalSeats] = useState("");
   const [description, setDescription] = useState("");
@@ -26,36 +27,14 @@ export default function CreateForm({ handleFormSuccess }: CreateFormProps) {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    const body = {
-      concertName,
-      totalSeats: parseInt(totalSeats),
+    const concertData = {
+      name: concertName,
+      reservations: parseInt(totalSeats),
       description,
     };
 
-    try {
-      const response = await fetch("http://localhost:3001/concerts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-      console.log("Concert created with ID:", data.id);
-      handleFormSuccess({
-        id: data.id,
-        name: concertName,
-        description: description,
-        reservations: totalSeats,
-      });
-    } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
-    }
+    createConcert(concertData);
+    handleFormSuccess();
   };
 
   return (
