@@ -2,13 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useUser } from "../_context/UserContext";
 
-interface NavbarProps {
-  role: string;
-  onRoleSwitch: () => void;
-}
-
-export default function Navbar({ role, onRoleSwitch }: NavbarProps) {
+export default function Navbar() {
+  const { user, switchRole } = useUser();
+  const role = user.role;
   const pathname = usePathname();
 
   const isActive = (path: string) => {
@@ -86,7 +84,7 @@ export default function Navbar({ role, onRoleSwitch }: NavbarProps) {
           )}
           <li className="navbar-item">
             <Link href="/">
-              <div onClick={onRoleSwitch} className="navbar-item-content">
+              <div onClick={switchRole} className="navbar-item-content">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

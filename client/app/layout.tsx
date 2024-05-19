@@ -5,6 +5,9 @@ import theme from "./theme";
 import { Roboto } from "next/font/google";
 import "./global.css";
 import { ConcertProvider } from "./_context/ConcertContext";
+import { ReservationProvider } from "./_context/ReservationContext";
+import { UserProvider } from "./_context/UserContext";
+import { ReservationHistoryProvider } from "./_context/ReservationHistoryContext";
 
 export const metadata = {
   title: "Next.js",
@@ -26,9 +29,15 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <ConcertProvider>
-              <main>{children}</main>
-            </ConcertProvider>
+            <UserProvider>
+              <ConcertProvider>
+                <ReservationProvider>
+                  <ReservationHistoryProvider>
+                    <main>{children}</main>
+                  </ReservationHistoryProvider>
+                </ReservationProvider>
+              </ConcertProvider>
+            </UserProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

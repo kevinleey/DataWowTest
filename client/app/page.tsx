@@ -9,26 +9,13 @@ import CreateForm from "./_components/CreateForm";
 import ConcertSnackbar from "./_components/ConcertSnackbar";
 import CustomTabPanel from "./_components/CustomTabPanel";
 import Navbar from "./_components/Navbar";
+import { useUser } from "./_context/UserContext";
 
 export default function HomePage() {
   const [value, setValue] = useState(0);
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [action, setAction] = useState("");
-  const [user, setUser] = useState({
-    role: "admin",
-    userData: {
-      username: "admin",
-      reservationHistory: [],
-    },
-  });
-
-  const onRoleSwitch = () => {
-    setUser((prevUser) => ({
-      ...prevUser,
-      role: prevUser.role === "admin" ? "user" : "admin",
-    }));
-    setValue(0);
-  };
+  const { user } = useUser();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -51,7 +38,7 @@ export default function HomePage() {
 
   return (
     <div className="main-container">
-      <Navbar role={user?.role || "user"} onRoleSwitch={onRoleSwitch} />
+      <Navbar />
       <div className="page">
         {user?.role === "admin" ? (
           <>

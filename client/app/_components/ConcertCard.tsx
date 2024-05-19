@@ -3,19 +3,27 @@ import { Modal } from "@mui/base/Modal";
 import { useState } from "react";
 import { styled } from "@mui/system";
 import { Backdrop } from "@mui/material";
+import { useReservations } from "../_context/ReservationContext";
+import { useReservationHistory } from "../_context/ReservationHistoryContext";
+import { useUser } from "../_context/UserContext";
 
 interface ConcertCardProps {
   concert: any;
   handleDeleteSuccess: () => void;
   curUser: any;
+  reservationId?: string;
 }
 
 export default function ConcertCard({
   concert,
   handleDeleteSuccess,
   curUser,
+  reservationId,
 }: ConcertCardProps) {
   const { deleteConcert } = useConcerts();
+  const { createReservation, deleteReservation } = useReservations();
+  const { createHistory } = useReservationHistory();
+  const { user } = useUser();
   const { id, name, description, reservations } = concert || {};
   const [open, setOpen] = useState(false);
 
@@ -27,6 +35,18 @@ export default function ConcertCard({
   const handleDelete = () => {
     deleteConcert(id);
     handleDeleteSuccess();
+  };
+
+  const handleCancelReservation = () => {
+    if (reservationId) {
+      deleteReservation(reservationId);
+      createHistory(user.username, concert.name, "Cancel");
+    }
+  };
+
+  const handleReserveConcert = () => {
+    createReservation(curUser.username, id);
+    createHistory(user.username, concert.name, "Reserve");
   };
 
   return (
@@ -75,8 +95,20 @@ export default function ConcertCard({
             </svg>
             <span className="small-icon-margin">Delete</span>
           </button>
+        ) : reservationId ? (
+          <button
+            className="button concert-card-delete-button"
+            onClick={handleCancelReservation}
+          >
+            Cancel
+          </button>
         ) : (
-          <button className="button reserve-button">Reserve</button>
+          <button
+            className="button reserve-button"
+            onClick={handleReserveConcert}
+          >
+            Reserve
+          </button>
         )}
       </div>
       <Modal

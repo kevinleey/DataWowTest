@@ -9,7 +9,7 @@ import React, {
 } from "react";
 
 interface Concert {
-  id: number;
+  id: string;
   name: string;
   description: string;
   reservations: number;
@@ -19,7 +19,7 @@ interface ConcertContextType {
   concerts: Concert[];
   setConcerts: React.Dispatch<React.SetStateAction<Concert[]>>;
   createConcert: (concertData: Omit<Concert, "id">) => void;
-  deleteConcert: (id: number) => void;
+  deleteConcert: (id: string) => void;
 }
 
 const ConcertContext = createContext<ConcertContextType | undefined>(undefined);
@@ -68,7 +68,7 @@ export const ConcertProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const deleteConcert = async (id: number) => {
+  const deleteConcert = async (id: string) => {
     try {
       const response = await fetch(`http://localhost:3001/concerts/${id}`, {
         method: "DELETE",
