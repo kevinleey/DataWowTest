@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Concert } from './concert.model';
 
 @Injectable()
@@ -12,18 +12,18 @@ export class ConcertsService {
     return concertId;
   }
 
-  getAllProducts() {
+  getAllConcerts() {
     return [...this.concerts];
   }
 
   deleteConcert(concertId: string): boolean {
-    const index = this.concerts.findIndex(
+    const concertIndex = this.concerts.findIndex(
       (concert) => concert.id === concertId,
     );
-    if (index !== -1) {
-      this.concerts.splice(index, 1);
-      return true;
+    if (concertIndex === -1) {
+      throw new NotFoundException('Concert not found');
     }
-    return false;
+    this.concerts.splice(concertIndex, 1);
+    return true;
   }
 }

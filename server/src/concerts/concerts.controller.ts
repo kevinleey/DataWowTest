@@ -27,7 +27,7 @@ export class ConcertsController {
   }
   @Get()
   getAllConcerts() {
-    return this.concertsService.getAllProducts();
+    return this.concertsService.getAllConcerts();
   }
 
   @Delete(':id')
