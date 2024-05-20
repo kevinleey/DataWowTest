@@ -10,7 +10,6 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
-import { Reservation } from './reservation.model';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 
 @Controller('reservations')
@@ -22,19 +21,11 @@ export class ReservationsController {
     return this.reservationsService.getAllReservations();
   }
 
-  @Get(':id')
-  getReservationsByUsername(
-    @Param('username') username: string,
-  ): Reservation[] {
-    return this.reservationsService.getReservationByUsername(username);
-  }
   @Post()
   createReservation(
     @Body(ValidationPipe) reservation: CreateReservationDto,
   ): any {
-    const reservationId =
-      this.reservationsService.createReservation(reservation);
-    return { id: reservationId };
+    return this.reservationsService.createReservation(reservation);
   }
 
   @Delete(':id')
