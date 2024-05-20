@@ -9,7 +9,7 @@ import React, {
 } from "react";
 
 interface Concert {
-  id: string;
+  id: number;
   name: string;
   description: string;
   reservations: number;
@@ -18,8 +18,8 @@ interface Concert {
 interface ConcertContextType {
   concerts: Concert[];
   setConcerts: React.Dispatch<React.SetStateAction<Concert[]>>;
-  createConcert: (concertData: Omit<Concert, "id">) => void;
-  deleteConcert: (id: string) => void;
+  createConcert: (concertData: Omit<Concert, "id">) => Promise<string | null>;
+  deleteConcert: (id: number) => void;
 }
 
 const ConcertContext = createContext<ConcertContextType | undefined>(undefined);
@@ -40,7 +40,9 @@ export const ConcertProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const createConcert = async (concertData: Omit<Concert, "id">) => {
+  const createConcert = async (
+    concertData: Omit<Concert, "id">,
+  ): Promise<string | null> => {
     try {
       const response = await fetch(`http://localhost:3001/concerts`, {
         method: "POST",
@@ -51,7 +53,8 @@ export const ConcertProvider = ({ children }: { children: ReactNode }) => {
       });
 
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        const errorData = await response.json();
+        return errorData.message.join(", ");
       }
 
       const data: Concert = await response.json();
@@ -62,13 +65,14 @@ export const ConcertProvider = ({ children }: { children: ReactNode }) => {
       };
 
       setConcerts((prevConcerts) => [...prevConcerts, newConcert]);
+      return null;
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
-      throw error;
+      return "Network error";
     }
   };
 
-  const deleteConcert = async (id: string) => {
+  const deleteConcert = async (id: number) => {
     try {
       const response = await fetch(`http://localhost:3001/concerts/${id}`, {
         method: "DELETE",

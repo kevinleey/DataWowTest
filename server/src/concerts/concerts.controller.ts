@@ -5,24 +5,19 @@ import {
   Body,
   Delete,
   Param,
+  ParseIntPipe,
+  ValidationPipe,
   NotFoundException,
 } from '@nestjs/common';
+import { CreateConcertDto } from './dto/create-concert.dto';
 import { ConcertsService } from './concerts.service';
 
 @Controller('concerts')
 export class ConcertsController {
   constructor(private readonly concertsService: ConcertsService) {}
   @Post()
-  createConcert(
-    @Body('name') concertName: string,
-    @Body('description') concertDesc: string,
-    @Body('reservations') concertSeats: number,
-  ): any {
-    const generatedId = this.concertsService.createConcert(
-      concertName,
-      concertDesc,
-      concertSeats,
-    );
+  createConcert(@Body(ValidationPipe) concert: CreateConcertDto): any {
+    const generatedId = this.concertsService.createConcert(concert);
     return { id: generatedId };
   }
   @Get()
@@ -31,7 +26,7 @@ export class ConcertsController {
   }
 
   @Delete(':id')
-  deleteConcert(@Param('id') concertId: string): any {
+  deleteConcert(@Param('id', ParseIntPipe) concertId: number): any {
     const deletedConcert = this.concertsService.deleteConcert(concertId);
     if (!deletedConcert) {
       throw new NotFoundException('Concert not found');

@@ -1,13 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Concert } from './concert.model';
+import { CreateConcertDto } from './dto/create-concert.dto';
 
 @Injectable()
 export class ConcertsService {
   private concerts: Concert[] = [];
+  private nextId = 1;
 
-  createConcert(name: string, description: string, totalSeats: number) {
-    const concertId = Math.random().toString();
-    const newConcert = new Concert(concertId, name, description, totalSeats);
+  createConcert(concertDto: CreateConcertDto) {
+    const { name, description, reservations } = concertDto;
+    const concertId = this.nextId;
+    this.nextId++;
+    const newConcert = new Concert(concertId, name, description, reservations);
     this.concerts.push(newConcert);
     return concertId;
   }
@@ -16,7 +20,7 @@ export class ConcertsService {
     return [...this.concerts];
   }
 
-  deleteConcert(concertId: string): boolean {
+  deleteConcert(concertId: number): boolean {
     const concertIndex = this.concerts.findIndex(
       (concert) => concert.id === concertId,
     );

@@ -11,6 +11,7 @@ export default function CreateForm({ handleFormSuccess }: CreateFormProps) {
   const [concertName, setConcertName] = useState("");
   const [totalSeats, setTotalSeats] = useState("");
   const [description, setDescription] = useState("");
+  const [errors, setErrors] = useState<string[]>([]);
 
   const handleConcertNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setConcertName(event.target.value);
@@ -33,8 +34,13 @@ export default function CreateForm({ handleFormSuccess }: CreateFormProps) {
       description,
     };
 
-    createConcert(concertData);
-    handleFormSuccess();
+    const errorMessage = await createConcert(concertData);
+    if (errorMessage) {
+      setErrors(errorMessage.split(", "));
+    } else {
+      handleFormSuccess();
+      setErrors([]);
+    }
   };
 
   return (
@@ -85,6 +91,22 @@ export default function CreateForm({ handleFormSuccess }: CreateFormProps) {
             />
           </div>
         </div>
+        {errors.length > 0 && (
+          <div className="error-messages">
+            {errors.length > 0 && (
+              <div className="error-messages">
+                Please check the following fields:
+                <ul>
+                  {errors.map((error, index) => (
+                    <li key={index} className="error-message">
+                      {error}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
         <button type="submit" className="button create-form-save-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"

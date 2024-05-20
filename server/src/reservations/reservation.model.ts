@@ -1,7 +1,7 @@
 export class Reservation {
   constructor(
-    public id: string,
-    public concertId: string,
+    public id: number,
     public username: string,
+    public concertId: number,
   ) {}
 }

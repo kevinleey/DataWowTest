@@ -1,6 +1,6 @@
 export class ReservationHistory {
   constructor(
-    public id: string,
+    public id: number,
     public username: string,
     public concertName: string,
     public timestamp: Date,

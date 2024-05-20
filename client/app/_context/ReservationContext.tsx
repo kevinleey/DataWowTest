@@ -9,16 +9,16 @@ import React, {
 } from "react";
 
 interface Reservation {
-  id: string;
-  concertId: string;
+  id: number;
+  concertId: number;
   username: string;
 }
 
 interface ReservationContextType {
   reservations: Reservation[];
   setReservations: React.Dispatch<React.SetStateAction<Reservation[]>>;
-  createReservation: (username: string, concertId: string) => Promise<void>;
-  deleteReservation: (id: string) => Promise<void>;
+  createReservation: (username: string, concertId: number) => Promise<void>;
+  deleteReservation: (id: number) => Promise<void>;
   getReservationsByUsername: (username: string) => Promise<void>;
 }
 
@@ -57,7 +57,7 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const createReservation = async (username: string, concertId: string) => {
+  const createReservation = async (username: string, concertId: number) => {
     try {
       const response = await fetch(`http://localhost:3001/reservations`, {
         method: "POST",
@@ -89,7 +89,7 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const deleteReservation = async (id: string) => {
+  const deleteReservation = async (id: number) => {
     try {
       const response = await fetch(`http://localhost:3001/reservations/${id}`, {
         method: "DELETE",

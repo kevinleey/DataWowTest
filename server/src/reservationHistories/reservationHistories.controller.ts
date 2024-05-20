@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
+import { CreateReservationHistoryDto } from './dto/create-reservation-history.dto';
 import { ReservationHistoriesService } from './reservationHistories.service';
 
 @Controller('reservationHistories')
@@ -9,14 +10,10 @@ export class ReservationHistoriesController {
 
   @Post()
   createReservationHistory(
-    @Body('username') username: string,
-    @Body('concertName') concertName: string,
-    @Body('action') reservationAction: 'Reserve' | 'Cancel',
+    @Body(ValidationPipe) reservationHistory: CreateReservationHistoryDto,
   ): any {
     return this.ReservationHistoriesService.createReservation(
-      username,
-      concertName,
-      reservationAction,
+      reservationHistory,
     );
   }
 
