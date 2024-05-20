@@ -53,7 +53,8 @@ export const ConcertProvider = ({ children }: { children: ReactNode }) => {
       });
 
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        const errorData = await response.json();
+        return errorData.message.join(", ");
       }
 
       const data: Concert = await response.json();
@@ -64,9 +65,10 @@ export const ConcertProvider = ({ children }: { children: ReactNode }) => {
       };
 
       setConcerts((prevConcerts) => [...prevConcerts, newConcert]);
+      return null;
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
-      throw error;
+      return "Network error";
     }
   };
 

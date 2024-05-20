@@ -293,3 +293,8 @@ a {
   padding: 8px;
   text-align: left;
 }
+
+.error-messages {
+  color: red;
+  margin-top: 10px;
+}
