@@ -59,12 +59,7 @@ export const ConcertProvider = ({ children }: { children: ReactNode }) => {
 
       const data: Concert = await response.json();
 
-      const newConcert = {
-        id: data.id,
-        ...concertData,
-      };
-
-      setConcerts((prevConcerts) => [...prevConcerts, newConcert]);
+      setConcerts((prevConcerts) => [...prevConcerts, data]);
       return null;
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);

@@ -17,8 +17,7 @@ export class ConcertsController {
   constructor(private readonly concertsService: ConcertsService) {}
   @Post()
   createConcert(@Body(ValidationPipe) concert: CreateConcertDto): any {
-    const generatedId = this.concertsService.createConcert(concert);
-    return { id: generatedId };
+    return this.concertsService.createConcert(concert);
   }
   @Get()
   getAllConcerts() {

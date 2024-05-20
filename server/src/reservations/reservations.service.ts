@@ -17,7 +17,7 @@ export class ReservationsService {
     this.nextId++;
     const newReservation = new Reservation(reservationId, username, concertId);
     this.reservations.push(newReservation);
-    return reservationId;
+    return newReservation;
   }
 
   deleteReservation(reservationId: number): boolean {

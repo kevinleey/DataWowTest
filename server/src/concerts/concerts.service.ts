@@ -13,7 +13,7 @@ export class ConcertsService {
     this.nextId++;
     const newConcert = new Concert(concertId, name, description, reservations);
     this.concerts.push(newConcert);
-    return concertId;
+    return newConcert;
   }
 
   getAllConcerts() {
