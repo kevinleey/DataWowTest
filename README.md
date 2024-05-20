@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Data Wow: Full-stack Developer Assignment (Next.js + NestJS)
 
 ## Getting Started
 
-First, run the development server:
+### Please install dependencies in the root, client, and server.
+
+After installing the dependencies, to run the app in a local environment, run the following command from the root directory to start the client and server simultaneously.
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Application Overview
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project is a concert management web application that supports the following features:
+- Admins can view, create, and delete concerts as well as view all users' concert reservation histories.
+- Users can view concerts, reserve seats, cancel reservations, and view their own reservation history.
 
-## Learn More
+### File Structure
 
-To learn more about Next.js, take a look at the following resources:
+The root directory contains a `client` and a `server` folder containing the frontend Next.js client and the backend NestJS server respectively.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Frontend (`./client`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- This application uses Next.js's App Router model (introduced in Next.js 13.4) for its simplicity and suitability for single-page applications.
+- There are only 2 subpages, Home and History, the main content of which lie in `./app/page.tsx` and `./app/history/page.tsx` respectively.
+- The components are contained in the `./app/_components` directory.
+- The application uses React's Context API to provide a simplified way to make fetch calls to the server API at various parts of the application, the configurations are contained in `./app/_context`.
+- The application's styling is provided in the `./app/global.css` file.
 
-## Deploy on Vercel
+### Backend (`./server`)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- There are 3 main entities (concerts, reservations, reservationHistories) in this application, the server code for each are in their own directories (`./src/`*ENTITY_NAME*).
+- Within each of these directories, you will find the following files:
+  - `...model.ts`: Interface for the entity.
+  - `...controller.ts`: Methods that handle incoming requests and returning responses to the client.
+  - `...service.ts`: Methods that are injected into the controller as dependencies to perform data operations.
+  - `...module.ts`: Encapsulates the entity's controller and service.
+  - `...controller.spec.ts`: File containing tests for each endpoint.
+  - `/dto/create-....dto.ts`: Interface for the data transfer object, contains validation rules.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Dependencies
+
+Other than the packages that come with Nest.js, the only other main dependency that was used in the frontend is `MaterialUI`. Some pre-made components were taken from their library to speed up the development process. As for the backend, NestJS's `class-validator` and `class-transformer` dependencies were used for data validation.
+
+## Server-side Unit Tests
+
+You can run the server unit tests from the terminal or using your IDE's user interface. `cd` into the server directory and run the following command `nest run test`.
