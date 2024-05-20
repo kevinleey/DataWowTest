@@ -9,7 +9,7 @@ import React, {
 } from "react";
 
 interface ReservationHistory {
-  id: string;
+  id: number;
   concertName: string;
   username: string;
   action: string;
@@ -26,7 +26,7 @@ interface ReservationHistoryContextType {
     concertName: string,
     action: string,
   ) => Promise<void>;
-  deleteHistory: (id: string) => Promise<void>;
+  deleteHistory: (id: number) => Promise<void>;
 }
 
 const ReservationHistoryContext = createContext<
@@ -75,7 +75,7 @@ export const ReservationHistoryProvider = ({
     }
   };
 
-  const deleteHistory = async (id: string) => {
+  const deleteHistory = async (id: number) => {
     try {
       const response = await fetch(`http://localhost:3001/reservations/${id}`, {
         method: "DELETE",

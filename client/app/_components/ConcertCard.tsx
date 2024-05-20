@@ -11,7 +11,7 @@ interface ConcertCardProps {
   concert: any;
   handleDeleteSuccess: () => void;
   curUser: any;
-  reservationId?: string;
+  reservationId?: number;
 }
 
 export default function ConcertCard({

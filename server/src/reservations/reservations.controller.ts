@@ -6,9 +6,12 @@ import {
   Delete,
   Param,
   NotFoundException,
+  ParseIntPipe,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
 import { Reservation } from './reservation.model';
+import { CreateReservationDto } from './dto/create-reservation.dto';
 
 @Controller('reservations')
 export class ReservationsController {
@@ -27,18 +30,15 @@ export class ReservationsController {
   }
   @Post()
   createReservation(
-    @Body('username') username: string,
-    @Body('concertId') concertId: string,
+    @Body(ValidationPipe) reservation: CreateReservationDto,
   ): any {
-    const reservationId = this.reservationsService.createReservation(
-      username,
-      concertId,
-    );
+    const reservationId =
+      this.reservationsService.createReservation(reservation);
     return { id: reservationId };
   }
 
   @Delete(':id')
-  deleteReservation(@Param('id') reservationId: string): any {
+  deleteReservation(@Param('id', ParseIntPipe) reservationId: number): any {
     const deletedReservation =
       this.reservationsService.deleteReservation(reservationId);
     if (!deletedReservation) {
