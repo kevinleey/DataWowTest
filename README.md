@@ -15,6 +15,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Application Overview
 
 This project is a concert management web application that supports the following features:
+
 - Admins can view, create, and delete concerts as well as view all users' concert reservation histories.
 - Users can view concerts, reserve seats, cancel reservations, and view their own reservation history.
 
@@ -32,7 +33,7 @@ The root directory contains a `client` and a `server` folder containing the fron
 
 ### Backend (`./server`)
 
-- There are 3 main entities (concerts, reservations, reservationHistories) in this application, the server code for each are in their own directories (`./src/`*ENTITY_NAME*).
+- There are 3 main entities (concerts, reservations, reservationHistories) in this application, the server code for each are in their own directories (`./src/`_ENTITY_NAME_).
 - Within each of these directories, you will find the following files:
   - `...model.ts`: Interface for the entity.
   - `...controller.ts`: Methods that handle incoming requests and returning responses to the client.
