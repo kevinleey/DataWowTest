@@ -51,17 +51,16 @@ const CreateForm: React.FC<CreateFormProps> = ({ handleFormSuccess }) => {
             value={concertName}
             onChange={handleChange}
             placeholder="Please input concert name"
+            existsIcon={false}
           />
-          <div className="section2">
-            <FormField
-              id="totalSeats"
-              label="Total Seats"
-              value={totalSeats}
-              onChange={handleChange}
-              type="number"
-            />
-            <div className="icon">{UserIcon}</div>
-          </div>
+          <FormField
+            id="totalSeats"
+            label="Total Seats"
+            value={totalSeats}
+            onChange={handleChange}
+            type="number"
+            existsIcon={true}
+          />
           <FormField
             id="description"
             label="Description"
@@ -69,6 +68,7 @@ const CreateForm: React.FC<CreateFormProps> = ({ handleFormSuccess }) => {
             onChange={handleChange}
             type="textarea"
             placeholder="Please input description"
+            existsIcon={false}
           />
         </div>
         <ErrorMessages errors={errors} />
