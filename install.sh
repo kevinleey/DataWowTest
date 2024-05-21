@@ -1,0 +1,11 @@
+npm i
+
+cd client
+
+npm i
+
+cd ../server
+
+npm i
+
+cd ..

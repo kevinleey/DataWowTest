@@ -4,6 +4,9 @@
 
 ### Please install dependencies in the root, client, and server.
 
+- Be in the root directory
+- Run `bash ./install.sh`, this will install dependencies for the whole project.
+
 After installing the dependencies, to run the app in a local environment, run the following command from the root directory to start the client and server simultaneously.
 
 ```bash
