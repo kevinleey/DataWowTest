@@ -49,3 +49,14 @@ Other than the packages that come with Nest.js, the only other main dependency t
 ## Server-side Unit Tests
 
 You can run the server unit tests from the terminal or using your IDE's user interface. `cd` into the server directory and run the following command `nest run test`.
+
+## Bonus Task
+- Express your opinion about how to optimize your website in case that this
+website contains intensive data and when more people access, the lower speed
+you get?
+  - As the application gets bigger, there are a number of strategies that can be employed to increase efficiency. Data cacheing can be a useful technique to fetch and store information that is often accessed to prevent over-fetching of data, leading to performance gains. Pagination for lists can also be a good way to decrease the size of each request, for instance, the concert list can grow to hundreds of entries, with pagination we may only have to fetch the first ten to display.
+
+- Express your opinion about how to handle when many users want to reserve the
+ticket at the same time? We want to ensure that in the concerts there is no one
+that needs to stand up during the show.
+  - At a high level, there are a number of approaches that can be considered. First, some sort of locking mechanism can be implemented to prevent a user from modifying data when another user is already doing so. For example, a user can be given a certain amount of time to complete an action, and will be kicked off when they do not finish in time.
