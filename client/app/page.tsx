@@ -5,10 +5,10 @@ import Statistics from "./_components/Statistics";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useState } from "react";
-import CreateForm from "./_components/CreateForm";
+import CreateForm from "./_components/form/CreateForm";
 import ConcertSnackbar from "./_components/ConcertSnackbar";
 import CustomTabPanel from "./_components/CustomTabPanel";
-import Navbar from "./_components/Navbar";
+import Navbar from "./_components/navbar/Navbar";
 import { useUser } from "./_context/UserContext";
 
 export default function HomePage() {

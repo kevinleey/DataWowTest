@@ -15,6 +15,7 @@ interface ReservationHistory {
   action: string;
   timestamp: Date;
 }
+import { ReservationHistory } from "../_interfaces/ReservationHistory";
 
 interface ReservationHistoryContextType {
   reservationHistory: ReservationHistory[];

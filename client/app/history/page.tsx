@@ -1,4 +1,4 @@
-import Navbar from "../_components/Navbar";
+import Navbar from "../_components/navbar/Navbar";
 import HistoryTable from "../_components/HistoryTable";
 
 export default function HistoryPage() {
