@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import { UserIcon } from "../../_assets/constants";
 
 interface FormFieldProps {
   id: string;
@@ -9,6 +10,7 @@ interface FormFieldProps {
   ) => void;
   type?: "text" | "number" | "textarea";
   placeholder?: string;
+  existsIcon: boolean;
 }
 
 export default function FormField({
@@ -18,6 +20,7 @@ export default function FormField({
   onChange,
   type = "text",
   placeholder,
+  existsIcon,
 }: FormFieldProps) {
   const getClassName = (id: string) => {
     if (id === "concertName") return "section1";
@@ -51,6 +54,7 @@ export default function FormField({
           placeholder={placeholder}
         />
       )}
+      {existsIcon && <div className="icon">{UserIcon}</div>}
     </div>
   );
 }
