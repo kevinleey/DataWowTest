@@ -7,12 +7,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-
-interface Reservation {
-  id: number;
-  concertId: number;
-  username: string;
-}
+import { Reservation } from "../_interfaces/Reservation";
 
 interface ReservationContextType {
   reservations: Reservation[];

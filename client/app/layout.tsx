@@ -1,9 +1,9 @@
-import Navbar from "./_components/Navbar";
+import Navbar from "./_components/navbar/Navbar";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
-import theme from "./theme";
+import theme from "./_assets/theme";
 import { Roboto } from "next/font/google";
-import "./global.css";
+import "./_assets/global.css";
 import { ConcertProvider } from "./_context/ConcertContext";
 import { ReservationProvider } from "./_context/ReservationContext";
 import { UserProvider } from "./_context/UserContext";

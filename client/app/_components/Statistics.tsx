@@ -1,7 +1,7 @@
 import StatisticCard from "./StatisticCard";
-import { UserIcon } from "../constants";
-import { ReservationIcon } from "../constants";
-import { CancelIcon } from "../constants";
+import { UserIcon } from "../_assets/constants";
+import { ReservationIcon } from "../_assets/constants";
+import { CancelIcon } from "../_assets/constants";
 import { useConcerts } from "../_context/ConcertContext";
 import { useReservationHistory } from "../_context/ReservationHistoryContext";
 
@@ -37,7 +37,11 @@ export default function Statistics() {
         text={"Reservations"}
         statistic={totalReservations}
       />
-      <StatisticCard icon={CancelIcon} text={"Cancellations"} statistic={totalCancellations} />
+      <StatisticCard
+        icon={CancelIcon}
+        text={"Cancellations"}
+        statistic={totalCancellations}
+      />
     </div>
   );
 }

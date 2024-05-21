@@ -1,4 +1,4 @@
-import ConcertCard from "./ConcertCard";
+import ConcertCard from "./concertCard/ConcertCard";
 import { useConcerts } from "../_context/ConcertContext";
 import { useReservations } from "../_context/ReservationContext";
 

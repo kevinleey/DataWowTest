@@ -12,12 +12,12 @@ export default function ConcertSnackbar({
   action,
   onClose,
 }: ConcertSnackbarProps) {
-  const message =
-    action === "created"
-      ? "Created successfully"
-      : action === "deleted"
-        ? "Deleted successfully"
-        : "";
+  const messageMap: { [key: string]: string } = {
+    created: "Created successfully",
+    deleted: "Deleted successfully",
+  };
+
+  const message = messageMap[action] || "";
 
   return (
     <div>
