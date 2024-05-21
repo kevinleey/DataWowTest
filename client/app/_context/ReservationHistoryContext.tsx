@@ -7,15 +7,8 @@ import React, {
   useEffect,
   useState,
 } from "react";
-
-interface ReservationHistory {
-  id: number;
-  concertName: string;
-  username: string;
-  action: string;
-  timestamp: Date;
-}
 import { ReservationHistory } from "../_interfaces/ReservationHistory";
+import { useUser } from "./UserContext";
 
 interface ReservationHistoryContextType {
   reservationHistory: ReservationHistory[];
@@ -42,6 +35,7 @@ export const ReservationHistoryProvider = ({
   const [reservationHistory, setReservationHistory] = useState<
     ReservationHistory[]
   >([]);
+  const { user } = useUser();
 
   const createHistory = async (
     username: string,
@@ -95,9 +89,11 @@ export const ReservationHistoryProvider = ({
   useEffect(() => {
     const fetchReservationHistory = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3001/reservationHistories",
-        );
+        let url = "http://localhost:3001/reservationHistories";
+        if (user.role === "user") {
+          url += `/${user.username}`;
+        }
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -108,7 +104,7 @@ export const ReservationHistoryProvider = ({
       }
     };
     fetchReservationHistory();
-  }, []);
+  }, [user]);
 
   return (
     <ReservationHistoryContext.Provider

@@ -7,7 +7,7 @@ export class ReservationHistoriesService {
   private reservationHistories: ReservationHistory[] = [];
   private nextId = 1;
 
-  createReservation(reservationHistoryDto: CreateReservationHistoryDto) {
+  createReservationHistory(reservationHistoryDto: CreateReservationHistoryDto) {
     const { username, concertName, action } = reservationHistoryDto;
     const reservationHistoryId = this.nextId;
     this.nextId++;
@@ -23,7 +23,13 @@ export class ReservationHistoriesService {
     return newReservation;
   }
 
-  getAllReservations() {
+  getAllReservationHistories() {
     return [...this.reservationHistories];
+  }
+
+  getReservationHistoriesByUsername(username: string) {
+    return this.reservationHistories.filter(
+      (history) => history.username === username,
+    );
   }
 }
